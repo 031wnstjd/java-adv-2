@@ -24,14 +24,15 @@ public class ServerV1 {
         /**
          * - serverSocket.accept(): OS backlog queue에서 TCP 연결 정보를 조회 후, Socket 객체 생성 (사용한 TCP 정보는 OS backlog queue에서 제거)
          */
-        Socket socket = serverSocket.accept(); // 12345번 포트에 클라이언트가 접속하면, 그걸 갖고 socket을 만듦 -> 이 socket으로 클라이언트와 통신
+        // 12345번 포트에 클라이언트가 접속하면, 그걸 갖고 socket을 만듦 -> 이 socket으로 클라이언트와 통신
+        Socket socket = serverSocket.accept(); // BLOCKING
         log("소켓 연결: " + socket);
 
-        DataInputStream input = new DataInputStream(socket.getInputStream());
-        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+        DataInputStream input = new DataInputStream(socket.getInputStream()); // OS 수신 버퍼에 쌓인 데이터를 읽음
+        DataOutputStream output = new DataOutputStream(socket.getOutputStream()); // OS 송신 버퍼에 데이터를 씀
 
         // 클라이언트로부터 문자 받기
-        String received = input.readUTF();
+        String received = input.readUTF(); // BLOCKING
         log("client -> server: " + received);
 
         // 클라이언트에게 문자 보내기
