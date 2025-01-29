@@ -6,6 +6,9 @@ import java.util.Date;
 
 public class OldFileMain {
 
+    /**
+     * 현재는 File이 아닌 Files를 주로 사용함
+     */
     public static void main(String[] args) throws IOException {
         File file = new File("temp/example.txt");
         File directory = new File("temp/exampleDir");
