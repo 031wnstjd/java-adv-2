@@ -1,6 +1,9 @@
 package io.member;
 
-public class Member {
+import java.io.Serializable;
+
+// Serializable(마커 인터페이스)이 없으면 객체 직렬화 시 NoSerializableException이 발생함
+public class Member implements Serializable {
     private String id;
     private String name;
     private Integer age;
