@@ -8,10 +8,10 @@ public class DataStreamEtcMain {
         FileOutputStream fos = new FileOutputStream("temp/data.dat");
         DataOutputStream dos = new DataOutputStream(fos);
 
-        dos.writeUTF("회원A");
-        dos.writeInt(20);
-        dos.writeDouble(10.5);
-        dos.writeBoolean(true);
+        dos.writeUTF("회원A"); // 3byte
+        dos.writeInt(20); // 4byte
+        dos.writeDouble(10.5); // 8byte
+        dos.writeBoolean(true); // 1byte
         dos.close();
 
         FileInputStream fis = new FileInputStream("temp/data.dat");
