@@ -42,6 +42,7 @@ public class SessionV6 implements Runnable {
                 log("client <- server: " + toSend);
             }
         } catch (IOException e) {
+            // input.readUTF() 블로킹 걸려있을 때 서버 shutdown 되면 Exception 발생할 수 있으므로 예외 처리
             log(e);
         } finally {
             sessionManager.remove(this);
