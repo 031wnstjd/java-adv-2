@@ -9,7 +9,7 @@ public class ResourceV1 {
     }
 
     public void call() {
-        System.out.println(name + "call");
+        System.out.println(name + " call");
     }
 
     public void callEx() throws CallException {
