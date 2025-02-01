@@ -1,4 +1,4 @@
-package network.exception.close;
+package network.exception.close.normal;
 
 import java.io.*;
 import java.net.Socket;
