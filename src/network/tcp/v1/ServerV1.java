@@ -14,7 +14,7 @@ public class ServerV1 {
 
     public static void main(String[] args) throws IOException {
         /**
-         * - ServerSocket: 클라이언트가 서버에 접속할 수 있게끔 TCP 연결 제공 및 접속 정보를 OS backlog queue에 저장
+         * - ServerSocket: 클라이언트가 서버에 접속할 수 있게끔 TCP 연결 제공 및 접속 정보를 OS backlog queue에 저장 (저장은 OS 레벨에서 자동으로 진행됨)
          * - Socket: 실제로 클라이언트와 통신하는 건 이 소켓 객체 (클라이언트 소켓 객체 - 서버 소켓 객체 간 통신)
          */
         log("서버 시작");

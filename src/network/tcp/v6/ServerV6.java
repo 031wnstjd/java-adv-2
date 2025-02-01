@@ -16,7 +16,7 @@ public class ServerV6 {
         ServerSocket serverSocket = new ServerSocket(PORT);
         log("서버 소켓 시작 - 리스닝 포트: " + PORT);
 
-        // ShutdownHook 등록
+        // ShutdownHook 등록 (서버 강제 종료 상황에서는 실행 안됨. 정상 종료 상황에서만 실행됨.)
         ShutdownHook shutdownHook = new ShutdownHook(serverSocket, sessionManager);
         Runtime.getRuntime().addShutdownHook(new Thread(shutdownHook, "shutdown"));
 
