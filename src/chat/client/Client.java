@@ -1,4 +1,4 @@
-package chat;
+package chat.client;
 
 import network.tcp.SocketCloseUtil;
 
@@ -29,7 +29,7 @@ public class Client {
 
     public void start() throws IOException {
         log("클라이언트 시작");
-        Socket socket = new Socket(host, port);
+        socket = new Socket(host, port);
         input = new DataInputStream(socket.getInputStream());
         output = new DataOutputStream(socket.getOutputStream());
 
