@@ -6,6 +6,9 @@ import java.util.List;
 
 import static util.MyLogger.log;
 
+/**
+ * 커맨드 패턴 - Receiver(실제 실행 대상)
+ */
 public class SessionManager {
 
     private List<Session> sessions = new ArrayList<>();

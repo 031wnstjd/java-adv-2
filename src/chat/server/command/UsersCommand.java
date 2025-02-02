@@ -1,0 +1,30 @@
+package chat.server.command;
+
+import chat.server.Session;
+import chat.server.SessionManager;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * 커맨드 패턴 내 역할 - ConcreteCommand(구체적인 명령 클래스) [명령을 수행하는 객체]
+ */
+public class UsersCommand implements Command {
+
+    private final SessionManager sessionManager;
+
+    public UsersCommand(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
+
+    @Override
+    public void execute(String[] args, Session session) throws IOException {
+        List<String> usernames = sessionManager.getAllUsername();
+        StringBuilder sb = new StringBuilder();
+        sb.append("전체 접속자: ").append(usernames.size()).append("\n");
+        for (String username : usernames) {
+            sb.append(" - ").append(username).append("\n");
+        }
+        session.send(sb.toString());
+    }
+}

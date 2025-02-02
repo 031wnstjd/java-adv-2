@@ -42,9 +42,5 @@ public class CommandManagerV2 implements CommandManager {
         } else {
             session.send("처리할 수 없는 명령어 입니다: " + totalMessage);
         }
-
-        if (totalMessage.startsWith("/exit")) {
-            throw new IOException("exit");
-        }
     }
 }
