@@ -1,12 +1,11 @@
 package chat.client;
 
-import network.tcp.SocketCloseUtil;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import static network.tcp.SocketCloseUtil.closeAll;
 import static util.MyLogger.log;
 
 public class Client {
@@ -39,7 +38,6 @@ public class Client {
         Thread writeThread = new Thread(writeHandler, "writeHandler");
         readThread.start();
         writeThread.start();
-
     }
 
     // Client 객체에서 자원을 모두 관리 (readHandler, writeHandler에서 동시에 close()를 호출하더라도 synchronized 키워드로 안전하게 호출 가능)
@@ -49,7 +47,7 @@ public class Client {
         }
         writeHandler.close();
         readHandler.close();
-        SocketCloseUtil.closeAll(socket, input, output);
+        closeAll(socket, input, output);
         closed = true;
         log("연결 종료: " + socket);
     }

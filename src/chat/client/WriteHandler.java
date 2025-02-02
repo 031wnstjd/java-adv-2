@@ -46,8 +46,6 @@ public class WriteHandler implements Runnable {
                     output.writeUTF("/message" + DELIMITER + toSend);
                 }
             }
-
-
         } catch (IOException | NoSuchElementException e) { // scanner가 닫히면 NoSuchElementException 발생
             log(e);
         } finally {
@@ -55,7 +53,7 @@ public class WriteHandler implements Runnable {
         }
     }
 
-    private static String inputUsername(Scanner scanner) {
+    private String inputUsername(Scanner scanner) {
         System.out.println("이름을 입력하세요.");
         String username;
         do {
