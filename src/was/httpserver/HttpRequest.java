@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static util.MyLogger.log;
 
 public class HttpRequest {
 
@@ -18,7 +19,7 @@ public class HttpRequest {
     public HttpRequest(BufferedReader reader) throws IOException {
         parseRequestLine(reader);
         parseHeaders(reader);
-        // 메시지 바디는 이후에 처리
+        parseBody(reader); // 추가
     }
 
     private void parseRequestLine(BufferedReader reader) throws IOException {
@@ -43,6 +44,7 @@ public class HttpRequest {
     // key1=value1&key2=value2
     // 키1=값1 -> %키1=%값1 (한글 퍼센트 디코딩 필요)
     // q= -> value가 없는 경우, 빈 문자열("") 넣어줌
+
     private void parseQueryParameters(String queryString) {
         for (String param : queryString.split("&")) {
             String[] keyValue = param.split("=");
@@ -52,19 +54,39 @@ public class HttpRequest {
         }
 
     }
-
     // Host: localhost:12345
     // Connection: keep-alive
     // sec-ch-ua: "Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"
     // sec-ch-ua-mobile: ?0
     // sec-ch-ua-platform: "Windows"
     //
+
     private void parseHeaders(BufferedReader reader) throws IOException {
         String line;
         while (!(line = reader.readLine()).isEmpty()) { // 빈 공백 올때까지 헤더 read
             String[] keyValue = line.split(":");
             // trim() 앞 뒤 공백 제거
             headers.put(keyValue[0].trim(), keyValue[1].trim());
+        }
+    }
+    private void parseBody(BufferedReader reader) throws IOException {
+        if (!headers.containsKey("Content-Length")) {
+            return;
+        }
+
+        int contentLength = Integer.parseInt(headers.get("Content-Length"));
+        char[] bodyChars = new char[contentLength];
+        int read = reader.read(bodyChars);
+        if (read != contentLength) {
+            throw new IOException("Fail to read entire body. Expected" + contentLength + " bytes, but read " + read);
+        }
+        String body = new String(bodyChars);
+        log("HTTP Message Body: " + body);
+
+        String contentType = headers.get("Content-Type");
+        if ("/application/x-www-urlencoded".equals(contentType)) {
+            // id=id1&name=name1&age=30
+            parseQueryParameters(body);
         }
     }
 
