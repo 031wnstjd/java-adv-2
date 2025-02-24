@@ -3,6 +3,7 @@ package was.v8;
 import was.httpserver.HttpServer;
 import was.httpserver.ServletManager;
 import was.httpserver.servlet.annotation.AnnotationServletV2;
+import was.httpserver.servlet.annotation.AnnotationServletV3;
 import was.v8.controller.DiscardControllerV8;
 import was.v8.controller.SearchControllerV8;
 import was.v8.controller.SiteControllerV8;
@@ -20,7 +21,8 @@ public class ServerMainV8 {
                 new SearchControllerV8(),
                 new DiscardControllerV8()
         );
-        AnnotationServletV2 annotationServlet = new AnnotationServletV2(controllers);
+//        AnnotationServletV2 annotationServlet = new AnnotationServletV2(controllers);
+        AnnotationServletV3 annotationServlet = new AnnotationServletV3(controllers);
 
         ServletManager servletManager = new ServletManager();
         servletManager.setDefaultServlet(annotationServlet);
